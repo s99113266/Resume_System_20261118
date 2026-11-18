@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>個人履歷</title>
+  <meta name="description" content="個人履歷：基本資料、簡介、學歷、經歷、技能與證照。">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/view.css">
+  <script src="js/api.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/rules.js" defer></script>
+  <script src="js/view.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <main class="page" id="main">
+    <p class="status" id="resume-status" role="status" aria-live="polite">正在讀取履歷資料…</p>
+
+    <noscript>
+      <p class="notice__message">此頁需要 JavaScript 才能讀取並顯示履歷資料。</p>
+    </noscript>
+
+    <div id="resume-notice" hidden></div>
+
+    <article class="resume" id="resume" aria-labelledby="resume-name" hidden>
+      <header class="profile">
+        <div class="profile__media" id="profile-photo"></div>
+        <div class="profile__body">
+          <h1 class="profile__name" id="resume-name"></h1>
+          <div class="profile__details">
+            <section class="profile__group" id="group-basic" aria-labelledby="group-basic-title">
+              <h2 class="profile__group-title" id="group-basic-title">基本資料</h2>
+              <ul class="facts" id="basic-facts"></ul>
+            </section>
+            <section class="profile__group" id="group-contact" aria-labelledby="group-contact-title">
+              <h2 class="profile__group-title" id="group-contact-title">聯繫方式</h2>
+              <ul class="facts" id="contact-facts"></ul>
+            </section>
+          </div>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="section-about">
+        <h2 class="section__title" id="section-about">簡介</h2>
+        <div class="intro">
+          <div class="intro__switch" role="group" aria-label="簡介語言">
+            <button type="button" class="intro__tab" data-lang="zh" aria-pressed="true">中文</button>
+            <button type="button" class="intro__tab" data-lang="en" aria-pressed="false">English</button>
+          </div>
+          <p class="intro__text" id="intro-text"></p>
+          <p class="empty" id="intro-empty" hidden>目前沒有提供簡介。</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-education">
+        <h2 class="section__title" id="section-education">學歷</h2>
+        <ol class="entries" id="education-list"></ol>
+        <p class="empty" id="education-empty" hidden>目前沒有學歷資料。</p>
+      </section>
+
+      <section class="section" aria-labelledby="section-experience">
+        <h2 class="section__title" id="section-experience">經歷</h2>
+        <ol class="entries" id="experience-list"></ol>
+        <p class="empty" id="experience-empty" hidden>目前沒有經歷資料。</p>
+      </section>
+
+      <section class="section" aria-labelledby="section-skills">
+        <h2 class="section__title" id="section-skills">技能</h2>
+        <ul class="chips" id="skills-list" aria-label="技能清單"></ul>
+        <p class="empty" id="skills-empty" hidden>目前沒有列出技能。</p>
+      </section>
+
+      <section class="section" aria-labelledby="section-certificates">
+        <h2 class="section__title" id="section-certificates">證照／證書</h2>
+        <ul class="certificates" id="certificates-list"></ul>
+        <p class="empty" id="certificates-empty" hidden>目前沒有證照或證書。</p>
+      </section>
+
+      <section class="section" aria-labelledby="section-positions">
+        <h2 class="section__title" id="section-positions">希望職缺</h2>
+        <ul class="chips chips--positions" id="positions-list" aria-label="希望職缺清單"></ul>
+        <p class="empty" id="positions-empty" hidden>目前沒有填寫希望職缺。</p>
+      </section>
+
+      <section class="section" aria-labelledby="section-portfolio">
+        <h2 class="section__title" id="section-portfolio">作品集</h2>
+        <ul class="portfolio" id="portfolio-list"></ul>
+        <p class="empty" id="portfolio-empty" hidden>作品集暫無資料。</p>
+      </section>
+
+      <footer class="page-footer">
+        <button type="button" class="button no-print" id="print-button" disabled>列印履歷</button>
+        <p class="page-footer__note" id="data-note" hidden></p>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>

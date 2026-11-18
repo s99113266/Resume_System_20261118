@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resume-system.local/schemas/resume.schema.json",
+  "title": "ResumeCollection",
+  "description": "履歷資料合輯：所有區段合併為單一 JSON，最多 3 層（根層 -> 區段 -> 清單項目欄位）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "basicInfo",
+    "education",
+    "experience",
+    "portfolio",
+    "skills",
+    "certificates",
+    "desiredPositions",
+    "introduction",
+    "introductionEn"
+  ],
+  "properties": {
+    "basicInfo": {
+      "type": "object",
+      "description": "基本資料 + 聯繫方式（兩個單元合併，所有欄位都在同一層）",
+      "additionalProperties": false,
+      "required": ["name", "birthday", "idNumber", "photoUrl", "gender", "mobile", "email"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "姓名" },
+        "birthday": {
+          "type": "string",
+          "pattern": "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+          "description": "生日（YYYY-MM-DD）"
+        },
+        "idNumber": {
+          "type": "string",
+          "pattern": "^[A-Z][12]\\d{8}$",
+          "description": "身分證字號"
+        },
+        "photoUrl": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "照片網址"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female", "other"],
+          "description": "性別"
+        },
+        "mobile": {
+          "type": "string",
+          "pattern": "^09\\d{2}-?\\d{3}-?\\d{3}$",
+          "description": "手機號碼"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "信箱"
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "學歷清單，每一項都是完整 JSON",
+      "items": { "$ref": "#/$defs/educationItem" }
+    },
+    "experience": {
+      "type": "array",
+      "description": "經歷清單，每一項都是完整 JSON",
+      "items": { "$ref": "#/$defs/experienceItem" }
+    },
+    "portfolio": {
+      "type": "array",
+      "description": "作品集清單（暫時保留，格式先定義，資料先維持空陣列）",
+      "items": { "$ref": "#/$defs/portfolioItem" }
+    },
+    "skills": {
+      "type": "array",
+      "description": "技能名稱字串清單",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "certificates": {
+      "type": "array",
+      "description": "證照／證書清單，每一項都是完整 JSON",
+      "items": { "$ref": "#/$defs/certificateItem" }
+    },
+    "desiredPositions": {
+      "type": "array",
+      "description": "希望職缺字串清單",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "introduction": {
+      "type": "string",
+      "description": "中文簡介"
+    },
+    "introductionEn": {
+      "type": "string",
+      "description": "英文簡介"
+    }
+  },
+  "$defs": {
+    "educationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schoolName", "department", "graduationDate", "graduationStatus"],
+      "properties": {
+        "schoolName": { "type": "string", "minLength": 1, "description": "學校名稱" },
+        "department": { "type": "string", "description": "科系" },
+        "graduationDate": {
+          "type": "string",
+          "pattern": "^(19|20)\\d{2}(-(0[1-9]|1[0-2]))?$",
+          "description": "肄/畢業年分（建議 YYYY-MM，可只填 YYYY）"
+        },
+        "graduationStatus": {
+          "type": "string",
+          "enum": ["畢業", "肄業"],
+          "description": "肄/畢業狀態（中文）：畢業／肄業"
+        }
+      }
+    },
+    "experienceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "companyName",
+        "startDate",
+        "resignDate",
+        "jobTitle",
+        "salary",
+        "jobDescription"
+      ],
+      "properties": {
+        "companyName": { "type": "string", "minLength": 1, "description": "公司名稱" },
+        "startDate": {
+          "type": "string",
+          "pattern": "^((19|20)\\d{2})-(0[1-9]|1[0-2])$",
+          "description": "任職區間起（到職年月，YYYY-MM）"
+        },
+        "resignDate": {
+          "type": ["string", "null"],
+          "pattern": "^((19|20)\\d{2})-(0[1-9]|1[0-2])$",
+          "description": "離職年月（YYYY-MM）；null 表示在職中"
+        },
+        "jobTitle": { "type": "string", "description": "職稱" },
+        "salary": {
+          "type": "string",
+          "description": "薪資（自由填寫，例如：月薪 60,000 元）"
+        },
+        "jobDescription": { "type": "string", "description": "工作內容" }
+      }
+    },
+    "portfolioItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["imageUrl", "linkUrl", "description"],
+      "properties": {
+        "imageUrl": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "作品圖片網址"
+        },
+        "linkUrl": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "作品連結網址"
+        },
+        "description": { "type": "string", "description": "作品簡介" }
+      }
+    },
+    "certificateItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "imageUrl"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "證照／證書名稱" },
+        "imageUrl": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "證照／證書照片網址"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,243 @@
+/* 共用基礎樣式：設計變數、重置、版面容器、共用元件、列印樣式。
+   所有頁面都必須第一個載入本檔；只有單一頁面用得到的樣式請寫在該頁專用 CSS。 */
+
+:root {
+  --paper: #fbf9f4;
+  --surface: #ffffff;
+  --ink: #191b1d;
+  --ink-soft: #4d5157;
+  --line: #e0dacd;
+  --line-strong: #cbc4b5;
+  --accent: #1d4f4a;
+  --accent-line: #b7cbc6;
+  --focus: #1d4f4a;
+  --font-sans: "Segoe UI", -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --page-width: 52rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -999px;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.page {
+  width: 100%;
+  max-width: calc(var(--page-width) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gutter) 4rem;
+}
+
+.status {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.notice {
+  max-width: 36rem;
+  padding: 1.25rem 1.375rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.notice__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.notice__message {
+  margin-top: 0.4rem;
+}
+
+.notice__hint {
+  margin-top: 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.notice__actions {
+  margin-top: 1.1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.05rem;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.45rem;
+}
+
+.chips li {
+  padding: 0.16rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.empty {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-soft: #333333;
+    --line: #c8c8c8;
+    --line-strong: #b3b3b3;
+    --accent: #000000;
+  }
+
+  body {
+    background: #ffffff;
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  .skip-link,
+  .no-print,
+  .intro__switch,
+  .page-footer {
+    display: none !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .section,
+  .entry,
+  .certificate,
+  .portfolio__item {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 16mm;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

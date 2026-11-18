@@ -1,0 +1,67 @@
+{
+  "basicInfo": {
+    "name": "王小明",
+    "birthday": "1995-04-12",
+    "idNumber": "A123456789",
+    "photoUrl": "https://tse1.explicit.bing.net/th/id/OIP.dzJESMp1BVgDi4gB05dWpwHaJ3?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "gender": "male",
+    "mobile": "0912-345-678",
+    "email": "xiaoming.wang@example.com"
+  },
+  "education": [
+    {
+      "schoolName": "國立臺灣科技大學",
+      "department": "資訊管理系",
+      "graduationDate": "2018-06",
+      "graduationStatus": "畢業"
+    },
+    {
+      "schoolName": "臺北市立大安高級工業職業學校",
+      "department": "資訊科",
+      "graduationDate": "2014-06",
+      "graduationStatus": "畢業"
+    }
+  ],
+  "experience": [
+    {
+      "companyName": "範例科技股份有限公司",
+      "startDate": "2021-03",
+      "resignDate": null,
+      "jobTitle": "前端工程師",
+      "salary": "月薪 60,000 元",
+      "jobDescription": "負責履歷系統前端開發與維護，使用 HTML、CSS、JavaScript 串接 REST API，並與後端工程師協作定義資料格式。"
+    },
+    {
+      "companyName": "範例資訊有限公司",
+      "startDate": "2018-07",
+      "resignDate": "2021-02",
+      "jobTitle": "網頁工程師",
+      "salary": "月薪 45,000 元",
+      "jobDescription": "維護公司官方網站與活動頁面，處理 RWD 版面調整、表單驗證與跨瀏覽器相容性問題。"
+    }
+  ],
+  "portfolio": [],
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Git",
+    "REST API"
+  ],
+  "certificates": [
+    {
+      "name": "TOEIC 多益英語測驗 金色證書（865 分）",
+      "imageUrl": "https://example.com/images/certificates/toeic-gold.jpg"
+    },
+    {
+      "name": "電腦軟體應用 乙級技術士",
+      "imageUrl": "https://example.com/images/certificates/computer-software-application-b.jpg"
+    }
+  ],
+  "desiredPositions": [
+    "前端工程師",
+    "全端工程師"
+  ],
+  "introduction": "具備三年以上前端開發經驗，熟悉 HTML、CSS 與 JavaScript，能獨立完成頁面切版與 API 串接。習慣將需求拆解為可驗證的小步驟，並重視程式碼可讀性與使用者體驗。",
+  "introductionEn": "Front-end developer with more than three years of experience in HTML, CSS and JavaScript. Comfortable building responsive layouts and integrating REST APIs, with a strong focus on code readability and user experience."
+}
