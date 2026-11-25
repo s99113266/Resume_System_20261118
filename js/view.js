@@ -343,7 +343,8 @@
     nodes.printButton.disabled = true;
     ui.setStatus(nodes.status, "正在讀取履歷資料…");
 
-    const result = await api.loadResume();
+    const actionInput = document.querySelector('#resume-request input[name="action"]');
+    const result = await api.loadResume(actionInput ? actionInput.value : "read");
     if (!result.success) {
       showError(result.reason);
       return;

@@ -1,10 +1,11 @@
 /* 共用：資料讀取。所有資料請求都必須經過本檔，其他檔案不得直接呼叫 fetch。
-   讀取順序：後端 API → 範例資料檔（預覽模式，只讀）。
+   讀取順序：Webhook API（POST）→ 範例資料檔（預覽模式，只讀）。
+   網址與方法登記於 docs/API.md 第 1 節。
    儲存與動作欄位屬於編輯頁階段，尚未建立。 */
 (function (global) {
   "use strict";
 
-  const API_URL = "api/resume";
+  const API_URL = "https://hook.eu1.make.com/t98j1ts3bk6jt0a79q5iad4ok8mgqpj3";
   const PREVIEW_URL = "data/resume.json";
   const SECTION_KEYS = [
     "basicInfo",
@@ -28,24 +29,31 @@
     });
   }
 
-  async function requestJson(url) {
-    const response = await fetch(url, {
+  async function requestJson(url, method, body) {
+    const options = {
+      method: method,
       headers: { Accept: "application/json" },
       cache: "no-store"
-    });
+    };
+    if (body !== undefined) {
+      options.headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(body);
+    }
+    const response = await fetch(url, options);
     if (!response.ok) {
       throw new Error("HTTP " + response.status);
     }
     return response.json();
   }
 
-  async function loadResume() {
+  async function loadResume(action) {
     if (global.location.protocol === "file:") {
       return { success: false, reason: "file-protocol" };
     }
 
     try {
-      const payload = await requestJson(API_URL);
+      const body = action ? { action: action } : {};
+      const payload = await requestJson(API_URL, "POST", body);
       if (isPlainObject(payload) && payload.success === false) {
         return { success: false, reason: "api-failed" };
       }
@@ -55,11 +63,11 @@
       }
       return { success: false, reason: "api-invalid" };
     } catch (error) {
-      // 後端尚未實作時，改讀範例資料檔。
+      // API 讀取失敗時，改讀範例資料檔。
     }
 
     try {
-      const data = await requestJson(PREVIEW_URL);
+      const data = await requestJson(PREVIEW_URL, "GET");
       if (isCollection(data)) {
         return { success: true, data: data, source: "preview" };
       }

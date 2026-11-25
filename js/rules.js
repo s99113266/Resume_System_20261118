@@ -1,7 +1,9 @@
 /* 共用：欄位顯示與格式規則。驗證與顯示都引用本檔，禁止在單頁 JS 重寫。
-   資料格式以 docs/API.md 為單一來源；編輯頁的驗證與動作值於該階段補上。 */
+   資料格式以 docs/API.md 為單一來源；動作值清單見 docs/API.md 第 3 節。 */
 (function (global) {
   "use strict";
+
+  const ACTIONS = ["read", "新增", "修改", "刪除", "其他"];
 
   function text(value) {
     return typeof value === "string" ? value.trim() : "";
@@ -35,6 +37,7 @@
 
   global.ResumeApp = global.ResumeApp || {};
   global.ResumeApp.rules = {
+    ACTIONS: ACTIONS,
     text: text,
     genderLabel: genderLabel,
     formatDate: formatDate,
